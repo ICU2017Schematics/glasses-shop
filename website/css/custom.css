@@ -1,0 +1,61 @@
+body {
+  padding-top: 60px;
+}
+
+thead>tr>td {
+    font-weight: bold;
+}
+
+i {
+    padding-right: 5px;
+}
+
+.navbar-right {
+    padding-right: 100px;
+}
+
+.starter-template {
+  padding: 40px 15px;
+  /* text-align: center; */
+}
+.spacer {
+  padding-right: 10px;
+}
+
+.thumbnail {
+    /* height: 450px; */
+}
+
+.short-description {
+    max-height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sale-price {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #cc0000;
+}
+
+.dimensions {
+    padding-right: 5px;
+    } {
+    border-right: 1px solid #e1e1e1;
+    border-left: 1px solid #e1e1e1;
+    text-align: center;
+}
+
+.btn-cart {
+    background-image: linear-gradient(to bottom,#f0ad4e 0,#eb9316 100%);
+    border-color: #e38d13;
+    color: #fff;
+}
+
+.description-area {
+    /* margin-top: -150px; */
+}
+
+.carousel-inner>.item>img {
+    /*height: 250px;*/
+}

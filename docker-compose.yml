@@ -1,0 +1,57 @@
+version: '3'
+
+services:
+  website:
+    image: pierrezemb/gostatic
+    restart: always
+    ports:
+      - "8080:8043"
+    environment:
+      - VCAP_APP_PORT=8080
+      - GATEWAY_ENTRYPOINT=http://gateway:5000
+    volumes:
+      - ./website:/srv/http
+  ship:
+    tty: true # Enables debugging capabilities when attached to this container.
+    image: 'bitnami/express:latest'
+    labels:
+      kompose.service.type: nodeport
+    command: npm start
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+
+      - SKIP_DB_WAIT=0
+      - SKIP_DB_MIGRATION=0
+      - SKIP_NPM_INSTALL=0
+      - SKIP_BOWER_INSTALL=0
+    ports:
+      - 3000:3000
+    volumes:
+      - ./ship:/app
+  cat:
+    image: cloudu2017/cat
+    restart: always
+    environment:
+      - VCAP_APP_PORT=5001
+      - CLOUDANT_USER=${CLOUDANT_USER}
+      - CLOUDANT_PASS=${CLOUDANT_PASS}
+      - CLOUDANT_URL=https://${CLOUDANT_HOST}
+  cart:
+    image: cloudu2017/cart
+    restart: always
+    environment:
+      - VCAP_APP_PORT=5002
+  gateway:
+    image: cloudu2017/gateway
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - VCAP_APP_PORT=5000
+      - CART_ENTRYPOINT=http://cart:5002
+      - CAT_ENTRYPOINT=http://cat:5001
+      - SHIP_ENTRYPOINT=http://ship:3000
+    links:
+      - cat
+      - cart
